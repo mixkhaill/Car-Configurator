@@ -2,7 +2,47 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+@font-face {
+  font-family: "Gilroy-ExtraBold";
+  src: url("/fonts/Gilroy-ExtraBold.otf") format("opentype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Gilroy-Light";
+  src: url("/fonts/Gilroy-Light.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: "Gilroy-Light", sans-serif;
+}
+
+.extraBold {
+  font-family: "Gilroy-ExtraBold", sans-serif;
+}
+
+.modal-background {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.content {
+  display: none;
+}
+
+.content.active-content {
+  display: flex;
+  justify-content: center;
+}
+
+.slick-track {
+  width: auto !important;
+  display: flex;
+}
+
+/* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
@@ -30,4 +70,4 @@ body {
   .text-balance {
     text-wrap: balance;
   }
-}
+} */
