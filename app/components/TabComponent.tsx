@@ -25,7 +25,7 @@ const TabComponent: React.FC<TabComponentProps> = ({ models }) => {
     <div className="Tab-Component overflow-hidden">
       <div className="flex justify-center">
         <div className="flex w-full">
-          <div className="slider-container flex justify-center">
+          <div className="slider-container flex justify-around">
             {Object.entries(models).map(([key, value]) => {
               if (value.categoryName)
                 return (
