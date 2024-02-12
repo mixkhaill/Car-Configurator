@@ -95,11 +95,11 @@ export const data = {
             },
             {
               name: "Kombinacja skóry i materiału",
-              price: 1500,
+              price: 1300,
             },
             {
               name: "Eco-skóra",
-              price: 1000,
+              price: 1200,
             },
             {
               name: "Skóra",
@@ -141,7 +141,7 @@ export const data = {
           Fields: [
             { type: "Benzynowy", power: "1.5 110KM", price: "standard" },
             { type: "Diesel", power: "1.6 110KM", price: "standard" },
-            { type: "Elektryczny", power: "150KM", price: "standard" },
+            { type: "Elektryczny", power: "150KM", price: 20000 },
           ],
         },
         versions: {

@@ -1,6 +1,9 @@
 import { Model } from "@/types/types";
 import React from "react";
-import { AiOutlineClose } from "react-icons/ai";
+import {
+  ConfiguratorContext,
+  useConfiguratorContext,
+} from "@/app/store/CommonApi";
 import Image from "next/image";
 
 interface CarModelProps {
@@ -10,11 +13,12 @@ interface CarModelProps {
 }
 
 const CarModel: React.FC<CarModelProps> = ({ model, onClick, isSelected }) => {
+  const { selectedModel } = useConfiguratorContext();
   return (
     <div
       className={`bg-white p-4 rounded-lg shadow-md flex flex-col justify-end border-2 transition ease-in-out ${
-        isSelected ? "border-2 border-rose-500 " : ""
-      }`}
+        isSelected ? "border-2 border-rose-500 col-start-2 col-span-1 " : ""
+      } ${!isSelected && selectedModel ? "hidden " : ""}`}
       onClick={onClick}
     >
       <Image

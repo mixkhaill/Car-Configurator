@@ -65,12 +65,6 @@ const ResumeBar = () => {
             <h5 className="m-2">
               cena: <strong>{getTotalPrice()}</strong> zł
             </h5>
-            <Link
-              href="/ResumeOrder"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            >
-              zamów
-            </Link>
           </div>
         </div>
       </div>
