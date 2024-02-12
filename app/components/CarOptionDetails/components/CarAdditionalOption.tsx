@@ -5,7 +5,6 @@ import {
   ConfiguratorContext,
   useConfiguratorContext,
 } from "@/app/store/CommonApi";
-import Modal from "./Modal";
 
 interface CarAdditionalOptionProps {
   additionalOptions: AdditionalOption[];
@@ -15,21 +14,26 @@ interface CarAdditionalOptionProps {
 const CarAdditionalOption: React.FC<CarAdditionalOptionProps> = ({
   additionalOptions,
 }) => {
-  const ctx = useContext(ConfiguratorContext);
-  const { setSelectAdditionalOption, selectedAdditionalOption, setIsConflict } =
+  const { selectedAdditionalOption, setSelectAdditionalOption, setIsConflict } =
     useConfiguratorContext();
-  const [selectAdditionalOption, setSelectedAdditionalOption] =
-    useState<AdditionalOption | null>(
-      selectedAdditionalOption ? selectedAdditionalOption : null
-    );
+  const ctx = useContext(ConfiguratorContext);
 
   const handleSelectAdditionalOption = (additionalOption: AdditionalOption) => {
-    setSelectedAdditionalOption(additionalOption);
-    setSelectAdditionalOption(additionalOption);
-    if (selectedAdditionalOption === additionalOption) {
-      setSelectedAdditionalOption(null);
-      setSelectAdditionalOption(null);
+    const currentOptions = selectedAdditionalOption
+      ? [...selectedAdditionalOption]
+      : [];
+
+    const existingIndex = currentOptions.findIndex(
+      (option) => option.name === additionalOption.name
+    );
+
+    if (existingIndex !== -1) {
+      currentOptions.splice(existingIndex, 1);
+    } else {
+      currentOptions.push(additionalOption);
     }
+
+    setSelectAdditionalOption(currentOptions);
   };
 
   const isVersionMatchingStandards = (
@@ -56,22 +60,31 @@ const CarAdditionalOption: React.FC<CarAdditionalOptionProps> = ({
   };
 
   if (ctx.selectedVersion && ctx.selectedAdditionalOption) {
-    const isVersionMatchingStandards = checkIfVersionMatchesStandards(
-      ctx.selectedVersion.name,
-      ctx.selectedAdditionalOption.standards
-    );
-
-    setIsConflict(!isVersionMatchingStandards);
+    let isConflict = false;
+    for (const option of ctx.selectedAdditionalOption) {
+      if (
+        !checkIfVersionMatchesStandards(
+          ctx.selectedVersion.name,
+          option.standards
+        )
+      ) {
+        isConflict = true;
+        break;
+      }
+    }
+    setIsConflict(isConflict);
   }
 
   return (
-    <div className=" grid grid-cols-1 sm:grid-cols-2  gap-4 justify-center m-2">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 justify-center m-2">
       {additionalOptions.map((additionalOption, index) => (
         <div
           key={additionalOption.name}
           className={`bg-white p-4 m-4 rounded-lg shadow-md flex flex-col ${
-            additionalOption === selectedAdditionalOption
-              ? "border-2 border-rose-500 "
+            selectedAdditionalOption?.find(
+              (option) => option.name === additionalOption.name
+            )
+              ? "border-2 border-rose-500"
               : ""
           }`}
           onClick={() => handleSelectAdditionalOption(additionalOption)}

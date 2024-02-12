@@ -2,7 +2,7 @@ import React from "react";
 import { useContext } from "react";
 import { ConfiguratorContext } from "@/app/store/CommonApi";
 
-const Resume = () => {
+const ResumeBar = () => {
   const ctx = useContext(ConfiguratorContext);
 
   const getTotalPrice = () => {
@@ -17,8 +17,13 @@ const Resume = () => {
       typeof ctx?.selectedUpholstery.price === "number"
     )
       totalPrice += ctx?.selectedUpholstery.price;
-    if (ctx?.selectedAdditionalOption)
-      totalPrice += ctx?.selectedAdditionalOption.price;
+    if (ctx?.selectedAdditionalOption) {
+      for (const option of ctx.selectedAdditionalOption) {
+        if (typeof option.price === "number") {
+          totalPrice += option.price;
+        }
+      }
+    }
     return totalPrice;
   };
 
@@ -39,4 +44,4 @@ const Resume = () => {
   );
 };
 
-export default Resume;
+export default ResumeBar;

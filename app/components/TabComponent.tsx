@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
-import CarOptions from "./CarOptionDetails/components/CarOptions";
+import React, { useState, useRef } from "react";
+import CarOptions from "./CarOptions";
 import { Model } from "@/types/types";
-import Slider from "react-slick";
 import CarOptionDetails from "./CarOptionDetails/CarOptionDetails";
 
 interface TabComponentProps {
@@ -11,35 +10,6 @@ interface TabComponentProps {
 }
 
 const TabComponent: React.FC<TabComponentProps> = ({ models }) => {
-  const settings = {
-    arrows: false,
-    infinite: false,
-    centerPadding: "0",
-    responsive: [
-      {
-        breakpoint: 568,
-        settings: {
-          slidesToShow: 4,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 5,
-          slidesToScroll: 1,
-          centerMode: false,
-        },
-      },
-      {
-        breakpoint: 10000,
-        settings: {
-          slidesToScroll: 1,
-          centerMode: false,
-        },
-      },
-    ],
-  };
   const [activeCategory, setActiveCategory] = useState<string>(
     models.engines.categoryName
   );
@@ -54,8 +24,8 @@ const TabComponent: React.FC<TabComponentProps> = ({ models }) => {
   return (
     <div className="Tab-Component overflow-hidden">
       <div className="flex justify-center">
-        <div className="max-w-screen-lg">
-          <Slider {...settings}>
+        <div className="flex w-full">
+          <div className="slider-container flex justify-center">
             {Object.entries(models).map(([key, value]) => {
               if (value.categoryName)
                 return (
@@ -67,7 +37,7 @@ const TabComponent: React.FC<TabComponentProps> = ({ models }) => {
                   />
                 );
             })}
-          </Slider>
+          </div>
         </div>
       </div>
 

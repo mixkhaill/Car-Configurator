@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { data } from "@/data/data";
 import TabComponent from "./components/TabComponent";
 import CarModel from "./components/CarModel";
@@ -12,9 +12,9 @@ import {
   Upholstery,
   Version,
 } from "@/types/types";
-import { ConfiguratorContext, useConfiguratorContext } from "./store/CommonApi";
-import Resume from "./components/Resume";
-import Modal from "./components/CarOptionDetails/components/Modal";
+import { ConfiguratorContext } from "./store/CommonApi";
+import ResumeBar from "./components/ResumeBar";
+import Modal from "./components/Modal";
 
 const Home = () => {
   const [selectedModel, setSelectedModel] = useState<Model | null>(null);
@@ -31,8 +31,9 @@ const Home = () => {
     useState<Upholstery | null>(
       selectedModel ? selectedModel.upholsteries.Fields[0] : null
     );
-  const [selectedAdditionalOption, setSelectedAdditionalOption] =
-    useState<AdditionalOption | null>(null);
+  const [selectedAdditionalOption, setSelectedAdditionalOption] = useState<
+    AdditionalOption[] | null
+  >(null);
 
   const [isConflict, setIsConflict] = useState(false);
 
@@ -81,7 +82,7 @@ const Home = () => {
             </div>
             {selectedModel && <TabComponent models={selectedModel} />}
           </div>
-          {selectedModel && <Resume />}
+          {selectedModel && <ResumeBar />}
         </main>
       </ConfiguratorContext.Provider>
     </>

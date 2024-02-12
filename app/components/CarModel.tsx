@@ -2,10 +2,6 @@ import { Model } from "@/types/types";
 import React from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import Image from "next/image";
-import {
-  ConfiguratorContext,
-  useConfiguratorContext,
-} from "@/app/store/CommonApi";
 
 interface CarModelProps {
   model: Model;

@@ -1,17 +1,18 @@
 import React, { useContext } from "react";
-import { AiOutlineClose } from "react-icons/ai";
 import {
   ConfiguratorContext,
   useConfiguratorContext,
 } from "@/app/store/CommonApi";
-import CarVersion from "./CarVersion";
-import { Version } from "@/types/types";
+import CarVersion from "./CarOptionDetails/components/CarVersion";
 
 const Modal = () => {
   const ctx = useContext(ConfiguratorContext);
   const { setSelectAdditionalOption } = useConfiguratorContext();
 
-  const standards = ctx.selectedAdditionalOption!.standards;
+  const standards =
+    ctx.selectedAdditionalOption && ctx.selectedAdditionalOption?.length > 0
+      ? ctx.selectedAdditionalOption[0].standards
+      : [];
 
   if (standards) {
   }

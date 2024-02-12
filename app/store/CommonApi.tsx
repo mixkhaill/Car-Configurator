@@ -14,14 +14,16 @@ type ConfiguratorContextType = {
   selectedVersion?: Version | null;
   selectedColor?: Color | null;
   selectedUpholstery?: Upholstery | null;
-  selectedAdditionalOption?: AdditionalOption | null;
+  selectedAdditionalOption?: AdditionalOption[] | null;
   isConflict?: boolean;
   setSelectModel: (model: Model | null) => void;
   setSelectEngine: (engine: Engine | null) => void;
   setSelectVersion: (version: Version | null) => void;
   setSelectColor: (color: Color | null) => void;
   setSelectUpholstery: (upholstery: Upholstery | null) => void;
-  setSelectAdditionalOption: (option: AdditionalOption | null) => void;
+  setSelectAdditionalOption: React.Dispatch<
+    React.SetStateAction<AdditionalOption[] | null>
+  >;
   setIsConflict: (isConflict: boolean) => void;
 };
 

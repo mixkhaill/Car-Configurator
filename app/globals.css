@@ -37,9 +37,9 @@ body {
   justify-content: center;
 }
 
-.slick-track {
-  width: auto !important;
-  display: flex;
+.slider-container {
+  width: 100%;
+  overflow: hidden;
 }
 
 /* :root {
