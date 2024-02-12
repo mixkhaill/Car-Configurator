@@ -1,10 +1,6 @@
 import { Engine } from "@/types/types";
-import React, { useState } from "react";
-import { useContext } from "react";
-import {
-  ConfiguratorContext,
-  useConfiguratorContext,
-} from "@/app/store/CommonApi";
+import React from "react";
+import { useConfiguratorContext } from "@/app/store/CommonApi";
 
 interface CarEngineProps {
   engines: Engine[];
@@ -12,14 +8,9 @@ interface CarEngineProps {
 }
 
 const CarEngine: React.FC<CarEngineProps> = ({ engines }) => {
-  const ctx = useContext(ConfiguratorContext);
   const { setSelectEngine, selectedEngine } = useConfiguratorContext();
-  const [selectEngine, setSelectedEngine] = useState<Engine | null>(
-    ctx.selectedModel ? ctx.selectedModel?.engines.Fields[0] : selectedEngine!
-  );
 
   const handleSelectEngine = (engine: Engine) => {
-    setSelectedEngine(engine);
     setSelectEngine(engine);
   };
 
@@ -36,7 +27,12 @@ const CarEngine: React.FC<CarEngineProps> = ({ engines }) => {
           <>
             <h2 className="text-2xl font-bold mb-2 extraBold">{engine.type}</h2>
             <h3 className="text-xl mb-2">{engine.power}</h3>
-            <p>cena: {engine.price}</p>
+            <p>
+              cena:{" "}
+              {typeof engine.price === "number"
+                ? engine.price + "zł"
+                : engine.price}
+            </p>
           </>
         </div>
       ))}

@@ -1,10 +1,6 @@
 import { Version } from "@/types/types";
-import React, { useState } from "react";
-import { useContext } from "react";
-import {
-  ConfiguratorContext,
-  useConfiguratorContext,
-} from "@/app/store/CommonApi";
+import React from "react";
+import { useConfiguratorContext } from "@/app/store/CommonApi";
 
 interface CarVersionProps {
   versions: Version[];
@@ -16,7 +12,6 @@ const CarVersion: React.FC<CarVersionProps> = ({
   versions,
   isAdditionalOptionSelected,
 }) => {
-  const ctx = useContext(ConfiguratorContext);
   const {
     setSelectVersion,
     selectedVersion,
@@ -24,12 +19,7 @@ const CarVersion: React.FC<CarVersionProps> = ({
     setIsConflict,
   } = useConfiguratorContext();
 
-  const [selectVersion, setSelectedVersion] = useState<Version | null>(
-    ctx.selectedModel ? ctx.selectedModel?.versions.Fields[0] : selectedVersion!
-  );
-
   const handleSelectVersion = (version: Version) => {
-    setSelectedVersion(version);
     setSelectVersion(version);
     setIsConflict(false);
     if (!isAdditionalOptionSelected) {
@@ -39,7 +29,7 @@ const CarVersion: React.FC<CarVersionProps> = ({
 
   return (
     <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 justify-center m-2">
-      {versions.map((version, index) => (
+      {versions.map((version) => (
         <div
           key={version.name}
           className={`bg-white p-4 m-4 rounded-lg shadow-md flex flex-col ${
@@ -53,7 +43,12 @@ const CarVersion: React.FC<CarVersionProps> = ({
               <li key={option}>{option}</li>
             ))}
           </ul>
-          <p className="mt-auto pt-4">cena: {version.price}</p>
+          <p className="mt-auto pt-4">
+            cena:{" "}
+            {typeof version.price === "number"
+              ? version.price + "zł"
+              : version.price}
+          </p>
         </div>
       ))}
     </div>

@@ -7,7 +7,7 @@ import CarVersion from "./CarOptionDetails/components/CarVersion";
 
 const Modal = () => {
   const ctx = useContext(ConfiguratorContext);
-  const { setSelectAdditionalOption } = useConfiguratorContext();
+  const { setSelectAdditionalOption, setIsConflict } = useConfiguratorContext();
 
   const standards =
     ctx.selectedAdditionalOption && ctx.selectedAdditionalOption?.length > 0
@@ -20,8 +20,13 @@ const Modal = () => {
     (version) => standards.includes(version.name)
   );
 
+  const handleRejectChanges = () => {
+    setSelectAdditionalOption(null);
+    setIsConflict(false);
+  };
+
   return (
-    <div className="z-10 modal-background w-screen h-screen absolute flex justify-center items-center">
+    <div className="z-10 bg-black bg-opacity-30 w-screen h-screen absolute flex justify-center items-center">
       <div className="z-20 rounded-lg bg-slate-50 flex flex-col">
         <p className="m-2 p-2">
           Wybór tej opcji może spowodować zmianę innych elementów konfiguracji.
@@ -36,7 +41,7 @@ const Modal = () => {
         <div className="buttons mt-auto ml-auto mb-2">
           <button
             className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 m-2 rounded"
-            onClick={() => setSelectAdditionalOption(null)}
+            onClick={handleRejectChanges}
           >
             Odrzuć
           </button>

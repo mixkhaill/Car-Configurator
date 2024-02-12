@@ -1,5 +1,5 @@
 import { AdditionalOption } from "@/types/types";
-import React, { useState } from "react";
+import React from "react";
 import { useContext } from "react";
 import {
   ConfiguratorContext,

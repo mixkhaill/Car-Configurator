@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { data } from "@/data/data";
 import TabComponent from "./components/TabComponent";
+import ResumeOrderPage from "./ResumeOrder/page";
 import CarModel from "./components/CarModel";
 import {
   AdditionalOption,
@@ -66,6 +67,7 @@ const Home = () => {
   return (
     <>
       <ConfiguratorContext.Provider value={ctxValue}>
+        {selectedModel && <ResumeBar />}
         <main className="bg-slate-50 w-full">
           {isConflict && <Modal />}
           <div className="container mx-auto p-4 bg-slate-50">
@@ -82,7 +84,6 @@ const Home = () => {
             </div>
             {selectedModel && <TabComponent models={selectedModel} />}
           </div>
-          {selectedModel && <ResumeBar />}
         </main>
       </ConfiguratorContext.Provider>
     </>
